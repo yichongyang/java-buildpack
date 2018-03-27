@@ -17,6 +17,7 @@
       <w>constantized</w>
       <w>constantizes</w>
       <w>cpio</w>
+      <w>cprof</w>
       <w>creat</w>
       <w>cryptoki</w>
       <w>dhttp</w>
@@ -53,6 +54,7 @@
       <w>libruxitagentloader</w>
       <w>libyjpagent</w>
       <w>ljust</w>
+      <w>logtostderr</w>
       <w>lunaclient</w>
       <w>lunajsp</w>
       <w>mainclass</w>
@@ -94,6 +96,7 @@
       <w>shellwords</w>
       <w>simplecov</w>
       <w>socketfactory</w>
+      <w>stackdriver</w>
       <w>stderr</w>
       <w>strftime</w>
       <w>stringifies</w>
