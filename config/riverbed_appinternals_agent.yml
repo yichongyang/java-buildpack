@@ -24,6 +24,6 @@
 # software.
 ---
 version: 10.+
-repository_root: http://timothyyang.io:8040/appinternals
+repository_root: http://timothyyang.io/appinternals
 rvbd_moniker: $(ruby -e "require 'json' ; a = JSON.parse(ENV['VCAP_APPLICATION']);
                   puts \"#{a['application_name']}\"")
