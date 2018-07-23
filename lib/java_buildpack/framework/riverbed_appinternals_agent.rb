@@ -48,6 +48,8 @@ module JavaBuildpack
       RVBD_AGENT_FILES = 'RVBD_AGENT_FILES'
       RVBD_DSA_HOST = 'RVBD_DSAHOST'
       DSA_PORT        = 'DSA_PORT'
+      RVBD_JBP_VERSION = 'RVBD_JBP_VERSION'
+
 
       #constants
       DSA_PORT_DEFAULT        = 2111
@@ -62,7 +64,8 @@ module JavaBuildpack
                        :RVBD_DSA_HOST,
                        :DSA_PORT_DEFAULT,
                        :RVBD_AGENT_PORT_DEFAULT,
-                       :RVBD_DSA_PORT
+                       :RVBD_DSA_PORT,
+                       :RVBD_JBP_VERSION
 
       def initialize(context)
         super(context)
@@ -87,7 +90,7 @@ module JavaBuildpack
 
       def setup_javaopts(credentials)
         @droplet.java_opts.add_agentpath(agent_path)
-        rvbd_moniker = get_val_in_cred(RVBD_MONIKER, credentials[RVBD_MONIKER], nil, true)
+        rvbd_moniker = get_val_in_cred(RVBD_MONIKER, credentials[RVBD_MONIKER], nil, true) || @configuration[RVBD_MONIKER]
         @droplet.java_opts.add_system_property('riverbed.moniker',rvbd_moniker) unless rvbd_moniker.nil?
       end
 
@@ -103,9 +106,7 @@ module JavaBuildpack
           .add_environment_variable(RVBD_AGENT_PORT.upcase, get_val_in_cred(RVBD_AGENT_PORT.upcase, credentials[RVBD_AGENT_PORT], RVBD_AGENT_PORT_DEFAULT, true))
           .add_environment_variable(AIX_INSTRUMENT_ALL,1)
           .add_environment_variable(RVBD_AGENT_FILES,1)
-        dsa_host = @application.environment['CF_INSTANCE_IP']
-        raise "expect CF_INSTANCE_IP to be set otherwise dsa_host is unavailable" unless dsa_host
-        @droplet.environment_variables.add_environment_variable(RVBD_DSA_HOST, dsa_host)
+          .add_environment_variable(RVBD_JBP_VERSION,@version)
       end
 
       def architecture
